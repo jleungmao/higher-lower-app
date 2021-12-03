@@ -13,7 +13,12 @@ function AddChannel() {
     const handleFormSubmit = (event) => {
         event.preventDefault();
         console.log(channelName);
-        axios.get('http://localhost:8080/');
+        axios.get('http://localhost:8080/search-channel', { params: { channelName: channelName } })
+            .then(result => {
+                console.log(result.data);
+            }).catch(err => {
+                console.log(err);
+            });
     };
 
     return (

@@ -5,7 +5,6 @@ const router = express.Router();
 
 router.get('/', adminController.getMain);
 
-router.post('/update-videos', adminController.updateVideos);
 
 
 module.exports = router;

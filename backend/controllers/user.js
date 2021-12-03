@@ -1,5 +1,5 @@
 const Video = require('../models/video');
-// const axios = require('axios').default;
+const axios = require('axios').default;
 const fs = require('fs');
 const Youtube = require('youtube-api');
 
@@ -8,7 +8,7 @@ exports.getMain = (req, res, next) => {
     res.status(200).json({ location: "we are at the main admin page" });
 };
 
-exports.addChannel = async function (req, res, next) {
+exports.addChannel = async (req, res, next) => {
     const channelId = req.body.channelId;
     // axios.get(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&type=video&maxResults=5&key=${process.env.YOUTUBE_TOKEN}`)
     let nextPageExists = true;
@@ -71,7 +71,7 @@ exports.addChannel = async function (req, res, next) {
 // };
 
 
-exports.updateVideos = async function (req, res, next) {
+exports.updateVideos = async (req, res, next) => {
     let videos = await Video.find({});
     let videoIds = videos.map(video => video.videoId);
     while (videoIds.length > 0) {
@@ -117,6 +117,16 @@ exports.getRandomVideo = (req, res, next) => {
     });
 };
 
-module.exports.searchChannel = (req, res, next) => {
-    res.status(200).json({});
+module.exports.searchChannel = async (req, res, next) => {
+    let channels = [];
+    await axios.get(`https://youtube.googleapis.com/youtube/v3/channels?part=snippet&forUsername=${req.query.channelName}&maxResults=10&key=${process.env.YOUTUBE_TOKEN}`)
+        .then(result => {
+            for (let item of result.data.items) {
+                channels.push(item.snippet);
+            }
+        }).catch(err => {
+            console.log(err);
+        });
+    console.log(channels);
+    res.status(200).json(channels);
 };

@@ -9,7 +9,7 @@ router.get('/get-video', userController.getRandomVideo);
 router.get('/search-channel', userController.searchChannel);
 
 //POST
-router.post('/add-channel', userController.addChannel);
+// router.post('/add-channel', userController.addChannel);
 
 
 module.exports = router;
