@@ -1,2 +1,2 @@
-# higher-lower-app
+# higher-lower
  

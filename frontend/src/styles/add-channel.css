@@ -1,0 +1,30 @@
+.search-channel-box {
+    margin: auto;
+    margin-top: 5rem;
+    max-width: 40%;
+    padding: 0 1rem 1rem 1rem;
+    border: solid;
+    border-radius: .5rem;
+    border-color: #272727;
+    box-shadow: 0 0 10px;
+    color: #272727;
+}
+
+.channel-form-label {
+    font-size: large;
+}
+
+input[type=text] {
+    width: 15rem;
+    border-radius: .5rem;
+    padding: .25rem;
+    margin: 0 .5rem;
+}
+
+input[type=text]:focus {
+    outline: none;
+}
+
+button {
+    font-family: 'Outfit', sans-serif;
+}
