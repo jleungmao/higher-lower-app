@@ -122,11 +122,10 @@ module.exports.searchChannel = async (req, res, next) => {
     await axios.get(`https://youtube.googleapis.com/youtube/v3/channels?part=snippet&forUsername=${req.query.channelName}&maxResults=10&key=${process.env.YOUTUBE_TOKEN}`)
         .then(result => {
             for (let item of result.data.items) {
-                channels.push(item.snippet);
+                channels.push(item);
             }
         }).catch(err => {
             console.log(err);
         });
-    console.log(channels);
     res.status(200).json(channels);
 };
