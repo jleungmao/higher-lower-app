@@ -15,7 +15,7 @@ exports.addChannel = async (req, res, next) => {
     let nextPageToken = "";
     while (nextPageExists) {
         await Youtube.search.list({
-            key: process.env.YOUTUBE_TOKEN,
+            key: process.env.YT_API_KEY,
             part: 'snippet',
             channelId: channelId,
             pageToken: nextPageToken,
@@ -117,9 +117,11 @@ exports.getRandomVideo = (req, res, next) => {
     });
 };
 
+//https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=atrioc&type=channel&key=[YOUR_API_KEY]
 module.exports.searchChannel = async (req, res, next) => {
+    let maxResults = 10;
     let channels = [];
-    await axios.get(`https://youtube.googleapis.com/youtube/v3/channels?part=snippet&forUsername=${req.query.channelName}&maxResults=10&key=${process.env.YOUTUBE_TOKEN}`)
+    await axios.get(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=${maxResults}&q=${req.query.channelName}&type=channel&key=${process.env.YT_API_KEY}`)
         .then(result => {
             for (let item of result.data.items) {
                 channels.push(item);
@@ -128,4 +130,9 @@ module.exports.searchChannel = async (req, res, next) => {
             console.log(err);
         });
     res.status(200).json(channels);
+};
+
+module.exports.searchChannelById = async (req, res, next) => {
+    let channels = [];
+    await axios.get('');
 };

@@ -25,7 +25,7 @@ app.use(userRouter);
 
 
 
-mongoose.connect(process.env.MONGODB_KEY)
+mongoose.connect(process.env.DB_KEY)
     .then((result) => {
         app.listen(8080);
     })
